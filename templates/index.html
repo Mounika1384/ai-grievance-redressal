@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Government Schemes Eligibility Portal | Ministry of Rural Development</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --govt-blue: #0f4c81;
+            --govt-green: #2a6b34;
+            --govt-gold: #d4af37;
+            --govt-light: #f5f7fa;
+            --govt-saffron: #FF9933;
+            --govt-white: #FFFFFF;
+            --govt-green-flag: #138808;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #333;
+        }
+
+        .govt-header {
+            background: linear-gradient(135deg, var(--govt-blue) 0%, #1a365d 100%);
+            color: white;
+            padding: 15px 0;
+            border-bottom: 4px solid var(--govt-gold);
+        }
+
+        .national-emblem {
+            height: 60px;
+            margin-right: 15px;
+        }
+
+        .govt-title {
+            font-weight: 700;
+            font-size: 1.8rem;
+            margin: 0;
+        }
+
+        .govt-subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+            margin: 0;
+        }
+
+        .tricolor-bar {
+            height: 8px;
+            background: linear-gradient(90deg, var(--govt-saffron) 0%, var(--govt-saffron) 33%, var(--govt-white) 33%, var(--govt-white) 66%, var(--govt-green-flag) 66%, var(--govt-green-flag) 100%);
+            margin-bottom: 20px;
+        }
+
+        .main-card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, var(--govt-green) 0%, #2a6b34 100%);
+            color: white;
+            border-radius: 8px 8px 0 0 !important;
+            padding: 15px 20px;
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: var(--govt-blue);
+            margin-bottom: 5px;
+        }
+
+        .form-control,
+        .form-select {
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: var(--govt-blue);
+            box-shadow: 0 0 0 0.25rem rgba(15, 76, 129, 0.25);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--govt-blue) 0%, #1a365d 100%);
+            border: none;
+            padding: 12px;
+            font-weight: 600;
+            border-radius: 6px;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #1a365d 0%, var(--govt-blue) 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .btn-outline-secondary {
+            border: 2px solid var(--govt-blue);
+            color: var(--govt-blue);
+            border-radius: 4px;
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: var(--govt-blue);
+            color: white;
+        }
+
+        .info-section {
+            background-color: #e8f4f8;
+            border-left: 4px solid var(--govt-blue);
+            padding: 15px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .scheme-tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .scheme-tag {
+            background-color: #e8f4f8;
+            border: 1px solid var(--govt-blue);
+            color: var(--govt-blue);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .result-card {
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .eligible {
+            background: linear-gradient(135deg, #2a6b34 0%, #3c8c47 100%);
+        }
+
+        .not-eligible {
+            background: linear-gradient(135deg, #c23b22 0%, #dc3545 100%);
+        }
+
+        .feature-icon {
+            color: var(--govt-blue);
+            font-size: 1.2rem;
+            margin-right: 10px;
+        }
+
+        .helpline-box {
+            background-color: #e8f4f8;
+            border-radius: 8px;
+            padding: 15px;
+            border-left: 4px solid var(--govt-blue);
+        }
+
+        .footer {
+            background: linear-gradient(135deg, var(--govt-blue) 0%, #1a365d 100%);
+            color: white;
+            padding: 30px 0 15px;
+            margin-top: 40px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            margin-right: 20px;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+
+        .language-selector {
+            background-color: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            border-radius: 4px;
+            padding: 5px 10px;
+        }
+
+        .leader-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+        }
+
+        .leader-img {
+            width: 100%;
+            height: 300px;
+            /* Increased height */
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 3px solid var(--govt-gold);
+            /* Thicker border */
+            object-fit: cover;
+            /* Ensure image fills container */
+        }
+
+        .initiative-card {
+            border-left: 4px solid var(--govt-green);
+            padding: 15px;
+            margin-bottom: 15px;
+            background: white;
+            border-radius: 4px;
+            transition: transform 0.3s;
+        }
+
+        .initiative-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .govt-icon {
+            font-size: 2rem;
+            color: var(--govt-blue);
+            margin-bottom: 10px;
+        }
+
+        @media (max-width: 768px) {
+            .govt-title {
+                font-size: 1.4rem;
+            }
+
+            .national-emblem {
+                height: 50px;
+            }
+        }
+
+        .marquee-container {
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--govt-blue) 0%, #1a365d 100%);
+            color: white;
+            padding: 10px 0;
+            margin-bottom: 20px;
+            border-radius: 4px;
+        }
+
+        .marquee-text {
+            white-space: nowrap;
+            animation: marquee 25s linear infinite;
+            font-size: 1rem;
+        }
+
+        @keyframes marquee {
+            0% {
+                transform: translateX(100%);
+            }
+
+            100% {
+                transform: translateX(-100%);
+            }
+        }
+
+        .top-navbar {
+            background: linear-gradient(135deg, var(--govt-green) 0%, #2a6b34 100%);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .pm-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid white;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Top Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark top-navbar shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="#">
+                <img src="{{ url_for('static', filename='img/h3.png') }}" alt="logo" class="pm-image">
+                <span>Government of India</span>
+            </a>
+            <div class="d-flex align-items-center">
+                <img src="{{ url_for('static', filename='img/h4.jpeg') }}" alt="logo" class="pm-image">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Government Header -->
+    <header class="govt-header">
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <img src="{{ url_for('static', filename='img/h6.webp') }}" alt="logo" class="pm-image">
+                <div>
+                    <h1 class="govt-title">Government Schemes Eligibility Portal</h1>
+                    <p class="govt-subtitle">Ministry of Rural Development | Government of India</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="tricolor-bar"></div>
+
+    <!-- Marquee for important announcements -->
+    <div class="marquee-container">
+        <div class="marquee-text">
+            <i class="bi bi-megaphone-fill me-2"></i> Important: PM-Kisan 15th Installment released on 15th November
+            2023 | New applications for Ration Cards now open | Pension scheme eligibility criteria updated
+        </div>
+    </div>
+
+    <div class="container mb-5">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Info Section -->
+                <div class="info-section">
+                    <div class="d-flex align-items-center mb-2">
+                        <i class="bi bi-info-circle-fill feature-icon"></i>
+                        <h5 class="mb-0">Check Your Eligibility for Government Schemes</h5>
+                    </div>
+                    <p class="mb-0">This portal helps citizens determine their eligibility for various government
+                        welfare schemes. Enter your details and query to check which schemes you qualify for.</p>
+                </div>
+
+                <!-- Popular Schemes -->
+                <div class="mb-4">
+                    <h6 class="form-label">Popular Government Schemes:</h6>
+                    <div class="scheme-tags">
+                        <span class="scheme-tag">PM-Kisan</span>
+                        <span class="scheme-tag">Ration Card</span>
+                        <span class="scheme-tag">Pension Scheme</span>
+                        <span class="scheme-tag">Kisan Credit Card</span>
+                        <span class="scheme-tag">Ayushman Bharat</span>
+                        <span class="scheme-tag">Ujjwala Yojana</span>
+                    </div>
+                </div>
+
+                <!-- Main Form Card -->
+                <div class="card main-card">
+                    <div class="card-header">
+                        <h4 class="mb-0"><i class="bi bi-person-check me-2"></i>Eligibility Checker</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="text-muted">Provide your details to check eligibility for government schemes</p>
+
+                        <form id="queryForm">
+                            <div class="mb-3">
+                                <label for="queryInput" class="form-label">Your Query:</label>
+                                <div class="input-group">
+                                    <textarea class="form-control" id="queryInput" rows="3"
+                                        placeholder="e.g., I'm a 65-year-old farmer with 2 acres of land. Am I eligible for PM-Kisan?"></textarea>
+                                    <button class="btn btn-outline-secondary" type="button" id="voiceBtn">
+                                        <i class="bi bi-mic"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-4">
+                                    <label class="form-label">Age:</label>
+                                    <input type="number" class="form-control" id="ageInput">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Annual Income (₹):</label>
+                                    <input type="number" class="form-control" id="incomeInput">
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Landholding (acres):</label>
+                                    <input type="number" class="form-control" id="landInput" step="0.1">
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Occupation:</label>
+                                    <input type="text" class="form-control" id="occupationInput">
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Caste Category:</label>
+                                    <select class="form-select" id="casteInput">
+                                        <option value="">Select</option>
+                                        <option value="general">General</option>
+                                        <option value="obc">OBC</option>
+                                        <option value="sc">SC</option>
+                                        <option value="st">ST</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label class="form-label">Residence:</label>
+                                    <select class="form-select" id="residenceInput">
+                                        <option value="rural">Rural</option>
+                                        <option value="urban">Urban</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Response Language:</label>
+                                    <select class="form-select" id="languageSelect">
+                                        <option value="en">English</option>
+                                        <option value="hi">Hindi</option>
+                                        <option value="te">Telugu</option>
+                                        <option value="auto">Auto-Detect</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 py-2">
+                                <i class="bi bi-search me-2"></i>Check Eligibility
+                            </button>
+                        </form>
+
+                        <div id="loading" class="text-center mt-3" style="display: none;">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">Processing your query...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Results Section -->
+                <div id="results" class="mt-4" style="display: none;"></div>
+            </div>
+
+            <div class="col-lg-4">
+                <!-- Leader Section -->
+                <div class="leader-section">
+                    <h5 class="text-center mb-3"><i class="bi bi-star-fill text-warning"></i> Hon'ble Prime Minister
+                    </h5>
+                    <img src="{{ url_for('static', filename='img/h1.jpg') }}" alt="logo" class="pm-image">
+                    <p class="text-center mb-0">"Our government is committed to ensuring every citizen can access the
+                        benefits they're entitled to."</p>
+                    <p class="text-center mt-2"><strong>- Narendra Modi</strong></p>
+                </div>
+
+                <!-- Government Initiatives -->
+                <div class="initiative-card">
+                    <div class="text-center">
+                        <i class="bi bi-heart-pulse-fill govt-icon"></i>
+                        <h6>Ayushman Bharat</h6>
+                    </div>
+                    <p class="small">Health insurance scheme providing coverage of ₹5 lakh per family per year for
+                        secondary and tertiary care hospitalization.</p>
+                </div>
+
+                <div class="initiative-card">
+                    <div class="text-center">
+                        <i class="bi bi-lightbulb-fill govt-icon"></i>
+                        <h6>Ujjwala Yojana</h6>
+                    </div>
+                    <p class="small">Providing free LPG connections to women from below-poverty-line households to
+                        safeguard their health.</p>
+                </div>
+
+                <div class="initiative-card">
+                    <div class="text-center">
+                        <i class="bi bi-house-door-fill govt-icon"></i>
+                        <h6>Pradhan Mantri Awas Yojana</h6>
+                    </div>
+                    <p class="small">Housing for All by 2022 mission provides affordable housing to the urban poor with
+                        a target of building 20 million affordable houses.</p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="card main-card">
+                    <div class="card-header">
+                        <h6 class="mb-0"><i class="bi bi-link-45deg me-2"></i>Quick Links</h6>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item"><a href="#" class="text-decoration-none"><i
+                                        class="bi bi-arrow-right-circle-fill text-primary me-2"></i>PM-Kisan Official
+                                    Website</a></li>
+                            <li class="list-group-item"><a href="#" class="text-decoration-none"><i
+                                        class="bi bi-arrow-right-circle-fill text-primary me-2"></i>Ration Card
+                                    Application</a></li>
+                            <li class="list-group-item"><a href="#" class="text-decoration-none"><i
+                                        class="bi bi-arrow-right-circle-fill text-primary me-2"></i>Pension Scheme
+                                    Details</a></li>
+                            <li class="list-group-item"><a href="#" class="text-decoration-none"><i
+                                        class="bi bi-arrow-right-circle-fill text-primary me-2"></i>Document
+                                    Requirements</a></li>
+                            <li class="list-group-item"><a href="#" class="text-decoration-none"><i
+                                        class="bi bi-arrow-right-circle-fill text-primary me-2"></i>Scheme
+                                    Guidelines</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Floating Chatbot Button -->
+    <div id="chatbotIcon" style="position: fixed; bottom: 20px; right: 20px; background: #28a745; 
+                color: white; border-radius: 50%; width: 60px; height: 60px; 
+                display: flex; align-items: center; justify-content: center; 
+                font-size: 28px; cursor: pointer; z-index: 1000;">
+        💬
+    </div>
+
+    <!-- Chatbot Window (hidden by default) -->
+    <div id="chatbotWindow" style="position: fixed; bottom: 90px; right: 20px; width: 350px; height: 500px; 
+                background: white; border: 1px solid #ccc; border-radius: 12px; 
+                box-shadow: 0 4px 12px rgba(0,0,0,0.2); display: none; flex-direction: column; 
+                z-index: 1000;">
+
+        <!-- Header -->
+        <div
+            style="background: #28a745; color: white; padding: 10px; border-top-left-radius: 12px; border-top-right-radius: 12px; display: flex; justify-content: space-between; align-items: center;">
+            <strong>AI Chatbot</strong>
+            <span id="closeChatbot" style="cursor:pointer;">✖</span>
+        </div>
+
+        <!-- Messages -->
+        <div id="chatContent" style="flex: 1; padding: 10px; overflow-y: auto; font-size: 14px;"></div>
+
+        <!-- Input -->
+        <form id="chatForm" style="display:flex; border-top: 1px solid #ddd;">
+            <input type="text" id="chatInput" placeholder="Ask about PM-Kisan, Ration Card, Pension..."
+                style="flex: 1; border: none; padding: 10px;" required>
+            <button type="submit"
+                style="background: #28a745; color: white; border: none; padding: 10px 15px;">Send</button>
+        </form>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <h5>Government Schemes Eligibility Portal</h5>
+                    <p>An initiative by the Ministry of Rural Development</p>
+                    <div class="footer-links">
+                        <a href="#"><i class="bi bi-telephone me-1"></i>Contact</a>
+                        <a href="#"><i class="bi bi-shield-check me-1"></i>Privacy Policy</a>
+                        <a href="#"><i class="bi bi-file-text me-1"></i>Terms of Use</a>
+                        <a href="#"><i class="bi bi-diagram-3 me-1"></i>Sitemap</a>
+                    </div>
+                </div>
+                <div class="col-md-6 text-md-end mb-3">
+                    <p>Helpline Numbers:</p>
+                    <h4><i class="bi bi-telephone-outbound-fill me-2"></i>1800-180-1551 | 1800-11-0001</h4>
+                    <p>Available 24x7</p>
+                    <select class="language-selector" id="footerLanguageSelect">
+                        <option value="en">English</option>
+                        <option value="hi">Hindi</option>
+                        <option value="te">Telugu</option>
+                    </select>
+                </div>
+            </div>
+            <div class="text-center pt-3 border-top border-secondary">
+                <p class="mb-0">© 2023 Ministry of Rural Development, Government of India. All Rights Reserved,Developed
+                    By Team:25(M.Bhagya sri) </p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/voice_input.js') }}"></script>
+    <script>
+        document.getElementById('queryForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const query = document.getElementById('queryInput').value;
+            const language = document.getElementById('languageSelect').value;
+            const profile = {
+                age: document.getElementById('ageInput').value,
+                income: document.getElementById('incomeInput').value,
+                landholding: document.getElementById('landInput').value,
+                occupation: document.getElementById('occupationInput').value,
+                caste: document.getElementById('casteInput').value,
+                residence: document.getElementById('residenceInput').value
+            };
+
+            // Show loading
+            document.getElementById('loading').style.display = 'block';
+            document.getElementById('results').style.display = 'none';
+
+            try {
+                const response = await fetch('/query', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ query, language, ...profile })
+                });
+
+                const data = await response.json();
+
+                // Hide loading
+                document.getElementById('loading').style.display = 'none';
+
+                // Display results
+                const resultsDiv = document.getElementById('results');
+                resultsDiv.style.display = 'block';
+
+                let html = `
+                <div class="card result-card">
+                    <div class="card-header ${data.eligibility ? 'eligible' : 'not-eligible'} text-white">
+                        <h5 class="mb-0"><i class="bi bi-${data.eligibility ? 'check-circle' : 'x-circle'} me-2"></i>${data.scheme} - ${data.eligibility ? 'Eligible' : 'Not Eligible'}</h5>
+                    </div>
+                      <!-- TTS Controls -->
+            <div class="d-flex gap-2 mb-3">
+                <button id="replayBtn" class="btn btn-sm btn-primary"><i class="bi bi-volume-up"></i> Replay</button>
+                <button id="pauseBtn" class="btn btn-sm btn-warning">⏸ Pause</button>
+                <button id="stopBtn" class="btn btn-sm btn-danger">⛔ Stop</button>
+            </div>
+                    <div class="card-body">
+                        <p class="lead">${data.description}</p>
+                        
+                        <h6 class="mt-4"><i class="bi bi-list-check feature-icon"></i>Eligibility Assessment:</h6>
+                        <div class="alert ${data.eligibility ? 'alert-success' : 'alert-danger'}">
+                            <ul class="mb-0">
+            `;
+
+                data.reasons.forEach(reason => {
+                    html += `<li>${reason}</li>`;
+                });
+
+                html += `
+                            </ul>
+                        </div>
+                        
+                        <h6 class="mt-4"><i class="bi bi-file-text feature-icon"></i>Required Documents:</h6>
+                        <ul class="list-group mb-4">
+            `;
+
+                data.documents.forEach(doc => {
+                    html += `<li class="list-group-item"><i class="bi bi-check-lg text-success me-2"></i>${doc}</li>`;
+                });
+
+                html += `
+                        </ul>
+                        
+                        <h6 class="mt-4"><i class="bi bi-signpost feature-icon"></i>Next Steps:</h6>
+                        <ol class="list-group list-group-numbered mb-4">
+            `;
+
+                data.next_steps.forEach(step => {
+                    html += `<li class="list-group-item">${step}</li>`;
+                });
+
+                html += `
+                        </ol>
+                        
+                        <div class="helpline-box">
+                            <h6><i class="bi bi-telephone-outbound-fill feature-icon"></i>Helpline Support</h6>
+                            <p class="mb-1">For assistance with application process, contact:</p>
+                            <h5 class="text-primary">${data.helplines.join(' | ')}</h5>
+                            <p class="mb-0 small">Available Monday to Saturday, 9:30 AM to 6:00 PM</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+                resultsDiv.innerHTML = html;
+
+                // ---------------- Call TTS here ----------------
+                let speechText = data.description; // Use description directly to avoid hardcoded English
+                let langCode = language === "hi" ? "hi-IN" : language === "te" ? "te-IN" : "en-IN";
+                speakResult(speechText, langCode);
+
+                // Replay
+                document.getElementById('replayBtn').addEventListener('click', () => {
+                    speechSynthesis.cancel();
+                    speakResult(speechText, langCode);
+                });
+
+                // Pause / Resume
+                document.getElementById('pauseBtn').addEventListener('click', function () {
+                    if (speechSynthesis.speaking && !speechSynthesis.paused) {
+                        speechSynthesis.pause();
+                        this.textContent = "▶️ Resume";
+                    } else if (speechSynthesis.paused) {
+                        speechSynthesis.resume();
+                        this.textContent = "⏸️ Pause";
+                    }
+                });
+
+                // Stop
+                document.getElementById('stopBtn').addEventListener('click', function () {
+                    speechSynthesis.cancel();
+                    document.getElementById('pauseBtn').textContent = "⏸️ Pause";
+                });
+
+            } catch (error) {
+                document.getElementById('loading').style.display = 'none';
+                alert('Error processing your query. Please try again.');
+                console.error(error);
+            }
+        });
+
+        // ---------------- Text to Speech (TTS) ----------------
+        function speakResult(text, lang = "en-IN") {
+            if (!("speechSynthesis" in window)) {
+                console.warn("Speech synthesis not supported");
+                return;
+            }
+            speechSynthesis.cancel();
+
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.rate = 1;
+            utterance.pitch = 1;
+
+            const setVoice = () => {
+                const voices = speechSynthesis.getVoices();
+                console.log("Total voices found:", voices.length);
+
+                // 1. Try exact language match
+                let voice = voices.find(v => v.lang.toLowerCase() === lang.toLowerCase().replace('_', '-'));
+
+                // 2. Try language prefix match
+                if (!voice) {
+                    const langPrefix = lang.split('-')[0].toLowerCase();
+                    voice = voices.find(v => v.lang.toLowerCase().startsWith(langPrefix));
+                }
+
+                // 3. Try name match
+                if (!voice) {
+                    const langName = lang.includes("te") ? "Telugu" : lang.includes("hi") ? "Hindi" : "English";
+                    voice = voices.find(v => v.name.includes(langName));
+                }
+
+                // 4. Fallback to any Indian voice
+                if (!voice && (lang.endsWith("IN") || lang.includes("-"))) {
+                    voice = voices.find(v => v.lang.includes("IN"));
+                }
+
+                if (voice) {
+                    console.log(`Setting voice to: ${voice.name} (${voice.lang})`);
+                    utterance.voice = voice;
+                    utterance.lang = voice.lang;
+                } else {
+                    console.warn(`No voice found for ${lang}, using default.`);
+                    utterance.lang = lang;
+                }
+
+                speechSynthesis.speak(utterance);
+            };
+
+            if (speechSynthesis.getVoices().length > 0) {
+                setVoice();
+            } else {
+                speechSynthesis.onvoiceschanged = () => {
+                    setVoice();
+                    speechSynthesis.onvoiceschanged = null;
+                };
+            }
+        }
+
+
+
+        // ---------------- Language Synchronization ----------------
+        const mainLangSelect = document.getElementById('languageSelect');
+        const footerLangSelect = document.getElementById('footerLanguageSelect');
+
+        if (mainLangSelect && footerLangSelect) {
+            mainLangSelect.addEventListener('change', () => {
+                footerLangSelect.value = mainLangSelect.value;
+            });
+            footerLangSelect.addEventListener('change', () => {
+                const val = footerLangSelect.value;
+                if (val !== 'auto') {
+                    mainLangSelect.value = val;
+                    // Trigger change on main select to update voice_input.js
+                    mainLangSelect.dispatchEvent(new Event('change'));
+                }
+            });
+        }
+
+        // ---------------- Chatbot ----------------
+        const chatbotIcon = document.getElementById("chatbotIcon");
+        const chatbotWindow = document.getElementById("chatbotWindow");
+        const closeChatbot = document.getElementById("closeChatbot");
+        const chatForm = document.getElementById("chatForm");
+        const chatInput = document.getElementById("chatInput");
+        const chatContent = document.getElementById("chatContent");
+
+        chatbotIcon.onclick = () => chatbotWindow.style.display = "flex";
+        closeChatbot.onclick = () => chatbotWindow.style.display = "none";
+
+        function appendMessage(sender, text) {
+            const div = document.createElement("div");
+            div.style.marginBottom = "8px";
+            div.innerHTML = `<strong>${sender}:</strong> ${text}`;
+            chatContent.appendChild(div);
+            chatContent.scrollTop = chatContent.scrollHeight;
+        }
+
+        chatForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const userMsg = chatInput.value.trim();
+            if (!userMsg) return;
+
+            appendMessage("You", userMsg);
+            chatInput.value = "";
+
+            try {
+                const res = await fetch("/chat", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        query: userMsg,
+                        language: document.getElementById('languageSelect').value
+                    })
+                });
+                const data = await res.json();
+                if (data.answer) {
+                    appendMessage("AI", data.answer);
+                } else {
+                    appendMessage("AI", "❌ Sorry, I couldn't process that.");
+                }
+            } catch (err) {
+                console.error(err);
+                appendMessage("AI", "⚠️ Server error.");
+            }
+        });
+    </script>

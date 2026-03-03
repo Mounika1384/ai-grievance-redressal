@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+ENV/
+
+# Environment variables (Sensitive!)
+.env
+
+# Models and results
+*.joblib
+training_results/
+
+# Flask
+instance/
+.webassets-cache
+
+# OS
+.DS_Store
+Thumbs.db
