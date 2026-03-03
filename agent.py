@@ -41,8 +41,8 @@ class AIAgent:
         # API configuration
         self.api_key = os.getenv("OPENROUTER_API_KEY")
         self.model = os.getenv("LLM_MODEL")
-        if not self.model or self.model.strip() == "":
-            # Trying the most common free model slug for OpenRouter
+        if not self.model or not self.model.strip():
+            # A very stable free model on OpenRouter
             self.model = "google/gemini-2.0-flash-exp:free"
             
         self.base_url = os.getenv("LLM_BASE_URL")
@@ -111,8 +111,7 @@ class AIAgent:
                 return result['choices'][0]['message']['content'].strip()
             else:
                 print(f"API Error DEBUG: Status={response.status_code}, URL={self.base_url}, Model={self.model}")
-                print(f"Response Body: {response.text}")
-                return f"⚠️ AI Error {response.status_code}: Please check your Render Environment Variables for LLM_BASE_URL and LLM_MODEL."
+                return f"⚠️ AI Error {response.status_code}: Model '{self.model}' not found at {self.base_url}. Please check your Render Environment Variables."
                 
         except Exception as e:
             print(f"Request failed: {e}")
