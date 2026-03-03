@@ -231,6 +231,19 @@
             margin-bottom: 10px;
         }
 
+        @media (max-width: 991px) {
+            .leader-section {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .leader-img {
+                width: 200px;
+                height: 200px;
+            }
+        }
+
         @media (max-width: 768px) {
             .govt-title {
                 font-size: 1.4rem;
@@ -238,6 +251,38 @@
 
             .national-emblem {
                 height: 50px;
+            }
+
+            .govt-header .d-flex {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .pm-image {
+                margin-right: 0 !important;
+                margin-bottom: 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .govt-title {
+                font-size: 1.2rem;
+            }
+
+            .govt-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .main-card .card-header h4 {
+                font-size: 1.1rem;
+            }
+
+            #chatbotWindow {
+                width: calc(100% - 40px) !important;
+                height: 400px !important;
+                right: 20px !important;
+                left: 20px !important;
+                bottom: 80px !important;
             }
         }
 
@@ -299,7 +344,7 @@
     <header class="govt-header">
         <div class="container">
             <div class="d-flex align-items-center">
-                <img src="{{ url_for('static', filename='img/h6.webp') }}" alt="logo" class="pm-image">
+                <img src="{{ url_for('static', filename='img/h6.webp') }}" alt="logo" class="pm-image me-3">
                 <div>
                     <h1 class="govt-title">Government Schemes Eligibility Portal</h1>
                     <p class="govt-subtitle">Ministry of Rural Development | Government of India</p>
@@ -438,7 +483,7 @@
                 <div class="leader-section">
                     <h5 class="text-center mb-3"><i class="bi bi-star-fill text-warning"></i> Hon'ble Prime Minister
                     </h5>
-                    <img src="{{ url_for('static', filename='img/h1.jpg') }}" alt="logo" class="pm-image">
+                    <img src="{{ url_for('static', filename='img/h1.jpg') }}" alt="PM" class="leader-img">
                     <p class="text-center mb-0">"Our government is committed to ensuring every citizen can access the
                         benefits they're entitled to."</p>
                     <p class="text-center mt-2"><strong>- Narendra Modi</strong></p>
@@ -667,7 +712,21 @@
                 resultsDiv.innerHTML = html;
 
                 // ---------------- Call TTS here ----------------
-                let speechText = data.description; // Use description directly to avoid hardcoded English
+                const localizedText = {
+                    en: { docs: "Required Documents", steps: "Next Steps" },
+                    hi: { docs: "आवश्यक दस्तावेज़", steps: "अगले कदम" },
+                    te: { docs: "అవసరమైన పత్రాలు", steps: "తదుపరి దశలు" }
+                };
+                const langKey = language === "hi" ? "hi" : language === "te" ? "te" : "en";
+
+                let speechText = data.description + ". ";
+                if (data.documents && data.documents.length > 0) {
+                    speechText += localizedText[langKey].docs + ": " + data.documents.join(", ") + ". ";
+                }
+                if (data.next_steps && data.next_steps.length > 0) {
+                    speechText += localizedText[langKey].steps + ": " + data.next_steps.join(". ") + ". ";
+                }
+
                 let langCode = language === "hi" ? "hi-IN" : language === "te" ? "te-IN" : "en-IN";
                 speakResult(speechText, langCode);
 

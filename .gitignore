@@ -7,16 +7,16 @@ env/
 venv/
 ENV/
 
-# Environment variables (Sensitive!)
+# Environment variables
 .env
 
-# Models and results
-*.joblib
-training_results/
+# Models and large files
+# scheme_router_model.joblib
 
-# Flask
-instance/
-.webassets-cache
+# IDEs
+.vscode/
+.idea/
+.gemini/
 
 # OS
 .DS_Store
