@@ -42,18 +42,18 @@ class AIAgent:
         self.api_key = os.getenv("OPENROUTER_API_KEY")
         self.model = os.getenv("LLM_MODEL")
         if not self.model or self.model.strip() == "":
-            # Trying a more reliable free model name for OpenRouter
-            self.model = "google/gemini-2.0-flash-lite-preview-02-05:free"
+            # Trying the most common free model slug for OpenRouter
+            self.model = "google/gemini-2.0-flash-exp:free"
             
         self.base_url = os.getenv("LLM_BASE_URL")
-        if not self.base_url or self.base_url.strip() == "":
+        # Default to a sane value if not provided
+        if not self.base_url or not self.base_url.strip():
             self.base_url = "https://openrouter.ai/api/v1/chat/completions"
-        elif not self.base_url.endswith("/chat/completions"):
-            # Ensure it ends with /chat/completions if it's just the base
-            if self.base_url.endswith("/"):
-                self.base_url += "chat/completions"
-            else:
-                self.base_url += "/chat/completions"
+        else:
+            self.base_url = self.base_url.strip()
+            # If they provided just the base, append the completion path correctly
+            if not self.base_url.endswith("/chat/completions"):
+                self.base_url = self.base_url.rstrip("/") + "/chat/completions"
         
         print(f"Agent initialized with API key: {bool(self.api_key)}")
         print(f"Using model: {self.model}")
@@ -112,7 +112,7 @@ class AIAgent:
             else:
                 print(f"API Error DEBUG: Status={response.status_code}, URL={self.base_url}, Model={self.model}")
                 print(f"Response Body: {response.text}")
-                return f"⚠️ AI Error: {response.status_code} (Check logs for details)"
+                return f"⚠️ AI Error {response.status_code}: Please check your Render Environment Variables for LLM_BASE_URL and LLM_MODEL."
                 
         except Exception as e:
             print(f"Request failed: {e}")
