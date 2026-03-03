@@ -10,3 +10,4 @@ googletrans==3.1.0a0
 gunicorn==21.2.0
 matplotlib==3.7.2
 seaborn==0.12.2
+deep-translator==1.11.4
