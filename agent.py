@@ -40,10 +40,23 @@ class AIAgent:
 
         # API configuration
         self.api_key = os.getenv("OPENROUTER_API_KEY")
-        self.model = os.getenv("LLM_MODEL", "openai/gpt-4o-mini")
+        self.model = os.getenv("LLM_MODEL")
+        if not self.model or self.model.strip() == "":
+            self.model = "google/gemini-2.0-flash-exp:free"
+            
+        self.base_url = os.getenv("LLM_BASE_URL")
+        if not self.base_url or self.base_url.strip() == "":
+            self.base_url = "https://openrouter.ai/api/v1/chat/completions"
+        elif not self.base_url.endswith("/chat/completions"):
+            # Ensure it ends with /chat/completions if it's just the base
+            if self.base_url.endswith("/"):
+                self.base_url += "chat/completions"
+            else:
+                self.base_url += "/chat/completions"
         
         print(f"Agent initialized with API key: {bool(self.api_key)}")
         print(f"Using model: {self.model}")
+        print(f"Using base URL: {self.base_url}")
 
     # ---------------- Chatbot Q&A ----------------
     def ask_genai(self, query: str, language: str = "en") -> str:
@@ -77,7 +90,7 @@ class AIAgent:
         # Call LLM using direct HTTP request
         try:
             response = requests.post(
-                "https://openrouter.ai/api/v1/chat/completions",
+                self.base_url,
                 headers={
                     "Authorization": f"Bearer {self.api_key}",
                     "Content-Type": "application/json"
@@ -331,7 +344,7 @@ class AIAgent:
         if self.api_key:
             try:
                 response = requests.post(
-                    "https://openrouter.ai/api/v1/chat/completions",
+                    self.base_url,
                     headers={
                         "Authorization": f"Bearer {self.api_key}",
                         "Content-Type": "application/json"

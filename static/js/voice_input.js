@@ -60,6 +60,17 @@ document.addEventListener('DOMContentLoaded', function () {
         voiceBtn.classList.remove('listening', 'btn-danger');
         voiceBtn.classList.add('btn-outline-secondary');
         voiceBtn.innerHTML = '<i class="bi bi-mic"></i> Voice';
+        
+        if (event.error === 'not-allowed') {
+            alert('Microphone access denied. Please allow microphone permissions in your browser settings.');
+        } else if (event.error === 'network') {
+            alert('A network error occurred. Please check your connection.');
+        } else if (event.error === 'no-speech') {
+            // Usually fine to ignore or show subtle hint
+            console.log("No speech detected.");
+        } else {
+            alert('Speech recognition error: ' + event.error);
+        }
     };
 
     recognition.onend = function () {
