@@ -42,7 +42,8 @@ class AIAgent:
         self.api_key = os.getenv("OPENROUTER_API_KEY")
         self.model = os.getenv("LLM_MODEL")
         if not self.model or self.model.strip() == "":
-            self.model = "google/gemini-2.0-flash-exp:free"
+            # Trying a more reliable free model name for OpenRouter
+            self.model = "google/gemini-2.0-flash-lite-preview-02-05:free"
             
         self.base_url = os.getenv("LLM_BASE_URL")
         if not self.base_url or self.base_url.strip() == "":
@@ -109,8 +110,9 @@ class AIAgent:
                 result = response.json()
                 return result['choices'][0]['message']['content'].strip()
             else:
-                print(f"API Error: {response.status_code}, {response.text}")
-                return f"⚠️ API Error: {response.status_code}"
+                print(f"API Error DEBUG: Status={response.status_code}, URL={self.base_url}, Model={self.model}")
+                print(f"Response Body: {response.text}")
+                return f"⚠️ AI Error: {response.status_code} (Check logs for details)"
                 
         except Exception as e:
             print(f"Request failed: {e}")
