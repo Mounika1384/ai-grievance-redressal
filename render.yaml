@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: ai-grievance-redressal
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: OPENROUTER_API_KEY
+        sync: false
+      - key: LLM_MODEL
+        value: google/gemini-2.0-flash-exp:free
+      - key: LLM_BASE_URL
+        value: https://openrouter.ai/api/v1
