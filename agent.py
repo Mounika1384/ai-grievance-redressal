@@ -40,10 +40,15 @@ class AIAgent:
 
         # API configuration
         self.api_key = os.getenv("OPENROUTER_API_KEY")
+        if self.api_key:
+            self.api_key = self.api_key.strip()
+            
         self.model = os.getenv("LLM_MODEL")
         if not self.model or not self.model.strip():
             # A very stable free model on OpenRouter
             self.model = "google/gemini-2.0-flash-exp:free"
+        else:
+            self.model = self.model.strip()
             
         self.base_url = os.getenv("LLM_BASE_URL")
         # Default to a sane value if not provided
@@ -94,7 +99,9 @@ class AIAgent:
                 self.base_url,
                 headers={
                     "Authorization": f"Bearer {self.api_key}",
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    "HTTP-Referer": "https://github.com/Mounika1384/ai-grievance-redressal", # Optional
+                    "X-Title": "AI Grievance Redressal Agent" # Optional
                 },
                 json={
                     "model": self.model,
@@ -102,8 +109,8 @@ class AIAgent:
                         {"role": "system", "content": system_msg},
                         {"role": "user", "content": user_msg}
                     ],
-                    "temperature": 0.3,
-                }
+                },
+                timeout=15 # Add timeout
             )
             
             if response.status_code == 200:
